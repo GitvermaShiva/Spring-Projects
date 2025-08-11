@@ -4,7 +4,8 @@ import com.shivam.MyWeb.Model.User;
 import com.shivam.MyWeb.Service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,9 +29,9 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    // @PostMapping()
-    // public void addUser(new User()){
-    //     userService.addUser();
-    // }
+    @PostMapping("/users")
+    public void addUser(@RequestBody User user){
+        userService.addUser(user);
+    }
 
 }
