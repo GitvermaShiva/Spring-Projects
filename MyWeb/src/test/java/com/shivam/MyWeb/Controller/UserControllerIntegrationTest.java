@@ -211,15 +211,15 @@ class UserControllerIntegrationTest {
     @Test
     @DisplayName("Should return 404 for non-existent user")
     void testGetNonExistentUser() {
-        // Act
-        ResponseEntity<User> response = restTemplate.getForEntity(
-            baseUrl + "/users/99999", 
-            User.class
-        );
-
-        // Assert - This will likely throw an exception due to the service implementation
+        // Act & Assert - This will likely throw an exception due to the service implementation
         // The service doesn't handle non-existent users gracefully
         // This test demonstrates a potential improvement area
+        assertThrows(Exception.class, () -> {
+            restTemplate.getForEntity(
+                baseUrl + "/users/99999", 
+                User.class
+            );
+        });
     }
 
     @Test
