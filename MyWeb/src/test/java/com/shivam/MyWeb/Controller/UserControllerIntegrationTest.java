@@ -49,9 +49,11 @@ class UserControllerIntegrationTest {
     @DisplayName("Should get all users via REST endpoint")
     void testGetAllUsersEndpoint() {
         // Act
-        ResponseEntity<List> response = restTemplate.getForEntity(
+        ResponseEntity<List<User>> response = restTemplate.exchange(
             baseUrl + "/users", 
-            List.class
+            HttpMethod.GET,
+            null,
+            new org.springframework.core.ParameterizedTypeReference<List<User>>() {}
         );
 
         // Assert
@@ -231,8 +233,10 @@ class UserControllerIntegrationTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(malformedJson, headers);
 
-        // Act & Assert
-        // This test demonstrates that the application should handle malformed input gracefully
+        // Act & Assert - This test demonstrates that the application should handle malformed input gracefully
         // The current implementation might need validation improvements
+        assertThrows(Exception.class, () -> {
+            restTemplate.postForEntity(baseUrl + "/users", request, Void.class);
+        });
     }
 }
