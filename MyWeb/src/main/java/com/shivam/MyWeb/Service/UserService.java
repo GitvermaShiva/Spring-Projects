@@ -20,11 +20,31 @@ public class UserService {
     public User getUser(int userId){
         return users.stream()
                     .filter(u -> u.getId() == userId)
-                    .findFirst().get();
+                    .findFirst()
+                    .orElse(null);
     }    
 
     public void addUser(User user){
         users.add(user);
+    }
+
+    public int getIndex(User user){
+       int index=0;
+       for(int i=0; i<users.size(); i++){
+          if(users.get(i).getId() == user.getId()){
+            index=i;
+            break;
+          }
+       }
+       return index;
+    }
+
+    public void updateUser(User user){
+        users.set(getIndex(user),user);
+    }
+
+    public void deleteUser(int userId){
+        users.removeIf(user -> user.getId() == userId);
     }
 
 }

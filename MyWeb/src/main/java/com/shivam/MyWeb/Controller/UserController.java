@@ -1,10 +1,12 @@
 package com.shivam.MyWeb.Controller;
 
-import com.shivam.MyWeb.Model.User;
 import com.shivam.MyWeb.Service.UserService;
+import com.shivam.MyWeb.Model.User;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +36,13 @@ public class UserController {
         userService.addUser(user);
     }
 
+    @PutMapping("/users")
+    public void updateUser(@RequestBody User user){
+        userService.updateUser(user);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id){
+        userService.deleteUser(id);
+    }
 }
